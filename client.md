@@ -7,4 +7,6 @@
 - npm install semantic-ui-css semantic-ui-react
 - Apollo Client Developer Tools
 - npm install graphql graphql-tag
+- npm install apollo-link-context
+
 

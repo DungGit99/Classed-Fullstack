@@ -13,7 +13,7 @@ const Login = (props) => {
         password: ''
     })
     const [loginUser, {loading}] = useMutation(LOGIN_USER,{
-        update(proxy, { data: { login: userData }}){
+        update(_, {data: { login: userData }}){
             context.login(userData)
             props.history.push('/')
         },
@@ -23,7 +23,7 @@ const Login = (props) => {
         variables: values
     })
     function loginUserCallback() {
-        loginUser();
+      loginUser();
     }
 
     return (

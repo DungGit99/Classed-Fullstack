@@ -7,12 +7,22 @@ import * as serviceWorker from './serviceWorker';
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloProvider } from "@apollo/react-hooks";
-import { HttpLink } from "apollo-link-http";
+import { createHttpLink } from 'apollo-link-http';
+import { setContext } from 'apollo-link-context';
 
+const httpLink = createHttpLink({
+  uri: 'http://localhost:5000'
+});
+const authLink = setContext(() => {
+  const token = localStorage.getItem('jwtToken');
+  return {
+    headers: {
+      Authorization: token ? `Bearer ${token}` : ''
+    }
+  }
+})
 const client = new ApolloClient({
-  link: new HttpLink({
-      uri: "http://localhost:5000/"
-  }),
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache()
 });
 
